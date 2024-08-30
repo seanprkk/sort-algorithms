@@ -29,9 +29,6 @@ int main() {
     }
     cout << "Generated." << endl;
 
-    // UP TO HERE: REQUEST USER INPUT ON WHICH SORT TO USE, TIME SORTS FOR VARIOUS SIZES, DISPLAY RESULTS
-    // maybe convert results to csv or json file to read, manipulate and visualize in r/python/sql?
-
     int sort_index;
     cout << "-------------------------" << endl;
     cout << "Choose a sort type." << endl;

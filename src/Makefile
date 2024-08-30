@@ -1,35 +1,31 @@
 # Compiler
 CXX = g++
+CXXFLAGS = -std=c++11 -Wall -Iinclude
 
-# Compiler flags
-CXXFLAGS = -std=c++11 -Wall
+# Source Files
+SRCS = compare_sorts.cpp compare_lengths.cpp print_times.cpp sorting_algorithms.cpp
 
-# Targets for each executable
-TARGETS = compare_sorts compare_lengths
+# Object Files
+OBJS = $(SRCS:.cpp=.o)
 
-# Source files
-SRCS_COMPARE_SORTS = compare_sorts.cpp sorting_algorithms.cpp
-SRCS_COMPARE_LENGTHS = compare_lengths.cpp sorting_algorithms.cpp
+# Executable Files
+EXES = compare_sorts compare_lengths print_times
 
-# Object files (automatically generated from source files)
-OBJS_COMPARE_SORTS = $(SRCS_COMPARE_SORTS:.cpp=.o)
-OBJS_COMPARE_LENGTHS = $(SRCS_COMPARE_LENGTHS:.cpp=.o)
-
-# Default target: build all executables
-all: $(TARGETS)
+# Default target
+all: $(EXES)
 
 # Rule to build compare_sorts executable
-compare_sorts: $(OBJS_COMPARE_SORTS)
-	$(CXX) $(CXXFLAGS) -o compare_sorts $(OBJS_COMPARE_SORTS)
+compare_sorts: compare_sorts.o sorting_algorithms.o
+	$(CXX) $(CXXFLAGS) -o compare_sorts compare_sorts.o sorting_algorithms.o
 
 # Rule to build compare_lengths executable
-compare_lengths: $(OBJS_COMPARE_LENGTHS)
-	$(CXX) $(CXXFLAGS) -o compare_lengths $(OBJS_COMPARE_LENGTHS)
+compare_lengths: compare_lengths.o sorting_algorithms.o
+	$(CXX) $(CXXFLAGS) -o compare_lengths compare_lengths.o sorting_algorithms.o
 
-# Rule to compile source files into object files
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+# Rule to build print_times executable
+print_times: print_times.o sorting_algorithms.o
+	$(CXX) $(CXXFLAGS) -o print_times print_times.o sorting_algorithms.o
 
-# Clean rule to remove the executables and object files
+# Clean up object files and executables
 clean:
-	rm -f $(TARGETS) *.o
+	rm -f $(OBJS) $(EXES)
